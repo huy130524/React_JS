@@ -1,25 +1,68 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useRoutes } from "react-router-dom";
+import "./App.css";
+import Homepage from './page/Homepage';
+import Header from './compoment/header';
+import Viewhome from './layout/Viewhome';
+
+import Homeadmin from './page/Homeadmin';
+import Listproduct from './compoment/Listproduct';
+import Editproduct from './compoment/Editproduct';
+import AddProduct from './compoment/Addproduct';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const element = useRoutes([
+
+
+    {
+      path: "admin",
+      element: <Homeadmin />,
+      children:
+        [
+          
+          { path: "",
+            element: <Listproduct /> 
+           },
+           {
+            path: "edit/:id",
+            element: <Editproduct />,
+          },
+          {
+            path: "add",
+            element: <AddProduct />,
+          },
+        ],
+    },
+    {
+      path: "/",
+      element: <Viewhome />,
+      children:
+      [
+        { path: "",
+         element: <Homepage /> 
+        },
+      ],
+    },
+
+    {
+      path: "/regitter",
+      element: <Header />,
+    },
+     {
+      path: "/login",
+      element: <Header />,
+    },
+
+    {
+      path: "/login",
+      element: <Header />,
+    },
+
+
+
+  ]);
+  return element;
 }
 
 export default App;
